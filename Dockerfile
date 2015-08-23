@@ -50,7 +50,7 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys \
 	F3A04C595DB5B6A5F1ECA43E3B7BBB100D811BBE \
 	F7DA48BB64BCB84ECBA7EE6935CD23C10D498E23
 
-# Download tomcat7 server and remove file
+#	Download tomcat7 server and remove file
 
 ENV TOMCAT_MAJOR 7
 ENV TOMCAT_VERSION 7.0.63
@@ -64,7 +64,9 @@ RUN set -x \
     && rm bin/*.bat \
     && rm tomcat.tar.gz*
 
-#Setting tomcat port
-
+#	Setting tomcat port
 EXPOSE 8080 22 80
+
+#	Volume
+VOLUME ['/usr/local/tomcat/webapps/ROOT']
 CMD ["/usr/bin/supervisord"]
