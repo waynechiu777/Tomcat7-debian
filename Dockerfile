@@ -9,18 +9,18 @@ MAINTAINER Wayne Chiu hjk25323100@gmail.com
 
 
     
-# Setting Envirnoment
+#	Setting Envirnoment
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 RUN mkdir -p "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
 
 
-# Set SSL key
+#	Set SSL key
 RUN gpg --keyserver pgpkeys.mit.edu --recv-key 40976EAF437D05B5      
 RUN gpg -a --export 40976EAF437D05B5 | apt-key add - 
     
-# Install Supervisor
+#	Install Supervisor
 #RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 RUN apt-get update  
 RUN apt-get upgrade -y 
@@ -31,10 +31,13 @@ RUN mkdir -p /var/run/sshd &&  \
     
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-#SSH authorized_keys
+#	SSH authorized_keys
+#	should create authorized in local
 ADD authorized_keys /root/.ssh/authorized_keys
 RUN chmod 600 /root/.ssh/authorized_keys
-#
+
+
+#	Tomcat7 Key
 RUN gpg --keyserver pool.sks-keyservers.net --recv-keys \
 	05AB33110949707C93A279E3D3EFE6B686867BA6 \
 	07E48665A34DCAFAE522E5E6266191C37C037D42 \
