@@ -63,10 +63,8 @@ RUN set -x \
     && tar -xvf tomcat.tar.gz --strip-components=1 \
     && rm bin/*.bat \
     && rm tomcat.tar.gz*
-
+RUN chmod -R 777 /usr/local/tomcat 
 #	Setting tomcat port
 EXPOSE 8080 22 80
 
-#	Volume
-VOLUME ['/usr/local/tomcat/webapps/ROOT']
 CMD ["/usr/bin/supervisord"]
